@@ -150,7 +150,7 @@ resource "aws_instance" "cits5503" {
 
     ignore_changes = [
       "instance_type",
-      "user_data"
+      "user_data",
     ]
   }
 }
@@ -172,8 +172,13 @@ resource "aws_volume_attachment" "data-att" {
   instance_id = "${aws_instance.cits5503.id}"
 }
 
-output "instance_address" {
-  value = "${aws_instance.cits5503.public_ip}"
+resource "aws_eip" "cits5503" {
+  vpc      = true
+  instance = "${aws_instance.cits5503.id}"
+}
+
+output "eip_address" {
+  value = "${aws_eip.cits5503.public_ip}"
 }
 
 output "instance_id" {
