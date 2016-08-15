@@ -1,0 +1,12 @@
+notebook.ljones.id.au
+gzip
+log syslog
+errors syslog
+proxy / localhost:8888 {
+  transparent
+}
+proxy /terminals/websocket localhost:8888 {
+  transparent
+  websocket
+}
+
