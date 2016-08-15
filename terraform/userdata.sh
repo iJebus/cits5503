@@ -16,5 +16,8 @@ chown -R ubuntu:ubuntu /data
 apt-get update
 apt-get upgrade -y
 
+# Generate AU lang
+locale-gen en_AU.UTF-8
+
 # Install useful things
-apt-get install -y git silversearcher-ag curl jq
+apt-get install -y git silversearcher-ag curl jq mosh htop

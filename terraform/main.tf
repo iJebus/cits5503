@@ -133,7 +133,6 @@ resource "aws_instance" "cits5503" {
   vpc_security_group_ids      = ["${aws_security_group.cits5503.id}"]
   subnet_id                   = "${aws_subnet.public-a.id}"
   associate_public_ip_address = true
-  iam_instance_profile        = "${aws_iam_instance_profile.cits5503.id}"
   user_data                   = "${file("userdata.sh")}"
 
   root_block_device {
@@ -151,6 +150,7 @@ resource "aws_instance" "cits5503" {
 
     ignore_changes = [
       "instance_type",
+      "user_data"
     ]
   }
 }
@@ -172,32 +172,10 @@ resource "aws_volume_attachment" "data-att" {
   instance_id = "${aws_instance.cits5503.id}"
 }
 
-resource "aws_iam_instance_profile" "cits5503" {
-  name  = "cits5503"
-  roles = ["${aws_iam_role.cits5503.name}"]
-}
-
-resource "aws_iam_role" "cits5503" {
-  name = "cits5503"
-  path = "/"
-
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
-  ]
-}
-EOF
-}
-
 output "instance_address" {
   value = "${aws_instance.cits5503.public_ip}"
+}
+
+output "instance_id" {
+  value = "${aws_instance.cits5503.id}"
 }
