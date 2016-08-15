@@ -1,6 +1,8 @@
 # CITS5503
+
 ## What?
 Lab environment/playpen for [CITS5503](http://handbooks.uwa.edu.au/units/unitdetails?code=CITS5503).
+
 ## Requires
 * Terraform
 * AWS credentials (`terraform/secrets.tfvars`)
@@ -12,3 +14,11 @@ cd terraform
 TF_VAR_home_ip=$(wget http://ipinfo.io/ip -qO -) terraform apply -var-file=secrets.tfvars
 ```
 
+## Jupyter notebook
+``` 
+# Start
+~/data/cits5503/start_jupyter.sh
+
+# Stop
+~/data/cits5503/stop_jupyter.sh
+```
