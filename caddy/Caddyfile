@@ -9,4 +9,12 @@ proxy /terminals/websocket localhost:8888 {
   transparent
   websocket
 }
+rewrite {
+  r "~* /(api/kernels/[^/]+/(channels|iopub|shell|stdin)|terminals/websocket)/?"
+  to /api/kernels/{uri}
+}
+proxy /api/kernels localhost:8888 {
+  transparent
+  websocket
+}
 
